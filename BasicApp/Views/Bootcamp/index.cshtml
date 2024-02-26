@@ -1,0 +1,28 @@
+@model Bootcamp;
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bootcamp</title>
+</head>
+
+<body>
+    <h2>Bootcamp</h2>
+    <p>
+        @Model.Id
+    </p>
+    <p>
+        @Model.Title
+    </p>
+    <p>
+        @Model.Description
+    </p>
+    <p>
+        @Model.Instructor
+    </p>
+    <img src="~/img/@Model.ImageUrl" alt="BootcampImage" style="width:250px;">
+
+</body>
+</html>

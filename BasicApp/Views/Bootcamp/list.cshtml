@@ -1,0 +1,24 @@
+@model List<Bootcamp>;
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Bootcamp Listesi</h2>
+    @foreach (var bootcamp in Model)
+    {
+      <div>
+        <h3>@bootcamp.Title</h3>
+        <p>@bootcamp.Description</p>
+        <p>@bootcamp.Instructor</p>
+        <img src="~/img/@bootcamp.ImageUrl" alt="BootcampImage" style="width:250px;">
+        </div>
+    }
+   
+</body>
+</html>
