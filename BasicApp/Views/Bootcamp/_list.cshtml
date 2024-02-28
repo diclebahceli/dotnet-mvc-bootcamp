@@ -1,0 +1,18 @@
+@model Bootcamp
+
+
+
+<div class="card mb-3" style="width: 18rem;">
+    <img src="~/img/@Model.ImageUrl" class="card-img-top" alt="BootcampImage">
+    <div class="card-body">
+        <a asp-controller="Bootcamp" asp-action="Details" asp-route-id="@Model.Id">
+            <h5 class="card-title"> @Model.Title</h5>
+
+        </a>
+        <p class="card-text">@Model.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Model.Instructor</li>
+    </ul>
+
+</div>

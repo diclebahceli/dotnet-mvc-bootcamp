@@ -12,5 +12,8 @@ namespace BasicApp.Models
         public string? Description { get; set; }
         public string? Instructor { get; set; }
         public string? ImageUrl { get; set; }
+        public bool isActive { get; set; }
+        public bool isHome { get; set; }
+        public string[]? tag { get; set; }
     }
 }

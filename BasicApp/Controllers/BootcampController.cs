@@ -16,30 +16,15 @@ namespace BasicApp.Controllers
             return View(bootcamp);
         }
 
-        public IActionResult List(){
-            var bootcamps = new List<Bootcamp>(){
-            new(){
-                Id = 1,
-                Title = "Backend Bootcamp",
-                Description = "Learn backend development with C# and .NET",
-                Instructor = "Ahmet Kaya",
-                ImageUrl = "1.jpg"
-            },
-            new(){
-                Id = 2,
-                Title = "Frontend Bootcamp",
-                Description = "Learn frontend development with HTML, CSS and JavaScript",
-                Instructor = "Mehmet Yilmaz",
-                ImageUrl = "2.jpg"
-            },
-            new(){
-                Id = 3,
-                Title = "Fullstack Bootcamp",
-                Description = "Learn fullstack development with C#, .NET, HTML, CSS and JavaScript",
-                Instructor = "Ayşe Demir",
-                ImageUrl = "3.jpg"
-            }};
-            return View(bootcamps);
+        public IActionResult List()
+        {
+            return View(Repository.Bootcamps);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var bootcamp = Repository.GetById(id);
+            return View(bootcamp);
         }
     }
 }

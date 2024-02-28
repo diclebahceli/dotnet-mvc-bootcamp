@@ -1,4 +1,4 @@
-@model Bootcamp;
+@model List<Bootcamp>;
 
 
 <!DOCTYPE html>
@@ -10,19 +10,29 @@
 
 <body>
     <h2>Bootcamp</h2>
-    <p>
-        @Model.Id
-    </p>
-    <p>
-        @Model.Title
-    </p>
-    <p>
-        @Model.Description
-    </p>
-    <p>
-        @Model.Instructor
-    </p>
-    <img src="~/img/@Model.ImageUrl" alt="BootcampImage" style="width:250px;">
 
+    @await Html.PartialAsync("_Slider")
+
+    @foreach (var bootcamp in Model)
+    {
+        @if (@bootcamp.isActive && @bootcamp.isActive)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="~/img/@bootcamp.ImageUrl" class="card-img-top" alt="BootcampImage">
+                <div class="card-body">
+                    <h5 class="card-title"> @bootcamp.Title</h5>
+                    <p class="card-text">@bootcamp.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@bootcamp.Instructor</li>
+                    <li class="list-group-item">@bootcamp.Id</li>
+                </ul>
+                <div class="car-body">
+                    <a asp-controller="Bootcamp" asp-action="Details" asp-route-id="@bootcamp.Id" class="btn-btn-primary">
+                    </a>
+                </div>
+            </div>
+        }       }
 </body>
+
 </html>
