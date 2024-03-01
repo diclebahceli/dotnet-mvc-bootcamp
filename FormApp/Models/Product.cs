@@ -11,14 +11,24 @@ namespace FormApp.Models
         [Display(Name = "ProductId")]
         public int? ProductId { get; set; }
         [Display(Name = "BookName")]
-        public string? BookName { get; set; } = string.Empty;
+        [Required]
+        [StringLength(100)]
+        public string BookName { get; set; } = null!;
+
+
         [Display(Name = "PageCount")]
+        [Required]
+        [Range(0, 1500)]
         public int? PageCount { get; set; }
         [Display(Name = "Image")]
+        [Required]
         public string Image { get; set; } = string.Empty;
-        [Display(Name = "isActive")]
-        public bool isActive { get; set; }
+        [Display(Name = "IsActive")]
+        public bool IsActive { get; set; }
         [Display(Name = "CategoryId")]
+        [Required]
         public int CategoryId { get; set; }
+        [Required]
+        public IFormFile ImageFile { get; set; }
     }
 }

@@ -1,0 +1,40 @@
+﻿@model Product
+
+
+
+<form asp-controller="Home" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="BookName" class="form-label"></label>
+        <input asp-for="BookName" class="form-control">
+        <span asp-validation-for="BookName"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PageCount" class="form-label"></label>
+        <input asp-for="PageCount" class="form-control">
+        <span asp-validation-for="PageCount"></span>
+
+    </div>
+    <div class="input-group">
+        <input type="file" name="ImageFile" id="ImageFile" class="form-control">
+        <span asp-validation-for="ImageFile"></span>
+
+    </div>
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label"></label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+            <span asp-validation-for="CategoryId"></span>
+
+            <option value="0">All</option>
+
+        </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" name="IsActive" id="IsActive" class="form-check-input">
+        <label asp-for="IsActive" class="form-check-label">IsActive</label>
+        <span asp-validation-for="IsActive"></span>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
