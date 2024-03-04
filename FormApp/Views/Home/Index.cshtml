@@ -1,7 +1,4 @@
 ﻿@model ProductViewModel
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 <div class="card card-body my-2">
     <form asp-action="Index" method="get">
@@ -26,17 +23,19 @@
 <div class="row container">
     @foreach (var book in @Model.Products)
     {
-        <div class="col-md-3 mb-2" style="width: 18rem;">
-            <div>
-                <img src="~/image/@book.Image" alt="" class="card-img-top img-fluid mt-1"
-                    style="height: 200px; object-fit: contain;">
-                <div class="card-body">
-                    <h5 class="card-title">@book.BookName</h5>
-                    <p class="card-text">Sayfa: @book.PageCount</p>
-                    <a href="/Home/Details/@book.ProductId"> Details</a>
+        @if (book.IsActive)
+        {
+            <div class="col-md-3 mb-2" style="width: 18rem;">
+                <div>
+                    <img src="~/image/@book.Image" alt="" class="card-img-top img-fluid mt-1"
+                        style="height: 200px; object-fit: contain;">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.BookName</h5>
+                        <p class="card-text">Sayfa: @book.PageCount</p>
+                        <a href="/Home/Details/@book.ProductId"> Details</a>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    }
+            </div>
+        }       }
 </div>
