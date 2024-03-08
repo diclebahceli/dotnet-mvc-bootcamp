@@ -15,5 +15,14 @@ namespace EFCore.Data
         public string? StudentEmail { get; set; }
         public string? StudentPhone { get; set; }
 
+        public string NameSurname
+        {
+            get
+            {
+                return StudentName + " " + StudentSurname;
+            }
+        }
+
+
     }
 }

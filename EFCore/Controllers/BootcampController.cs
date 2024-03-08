@@ -1,34 +1,36 @@
 using EFCore.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.Controllers
 {
-    public class StudentController : Controller
+    public class BootcampController : Controller
     {
-
         private readonly DataContext _context;
 
-        public StudentController(DataContext context)
+        public BootcampController(DataContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var students = await _context.Students.ToListAsync();
-            return View(students);
+            var bootcamps = await _context.Bootcamps.Include(b => b.Teacher).ToListAsync();
+            return View(bootcamps);
         }
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Teachers = new SelectList(await _context.Teachers.ToListAsync(), "TeacherId", "TeacherName");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Student model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Bootcamp model)
         {
-
-            _context.Students.Add(model);
+            _context.Bootcamps.Add(model);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -40,21 +42,21 @@ namespace EFCore.Controllers
             {
                 return NotFound();
             }
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var bootcamp = await _context.Bootcamps.FindAsync(id);
+            if (bootcamp == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(bootcamp);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int? id, Student model)
+        public async Task<IActionResult> Edit(int? id, Bootcamp model)
         {
 
-            if (id != model.StudentId)
+            if (id != model.CourseId)
             {
                 return NotFound();
             }
@@ -67,7 +69,7 @@ namespace EFCore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Students.Any(o => o.StudentId == model.StudentId))
+                    if (!_context.Bootcamps.Any(o => o.CourseId == model.CourseId))
                     {
                         return NotFound();
                     }
@@ -76,8 +78,9 @@ namespace EFCore.Controllers
                         throw;
                     }
                 }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpGet]
@@ -87,25 +90,28 @@ namespace EFCore.Controllers
             {
                 return NotFound();
             }
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+
+            var bootcamp = await _context.Bootcamps.FindAsync(id);
+            if (bootcamp == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(bootcamp);
         }
-
         [HttpPost]
+
         public async Task<IActionResult> Delete([FromForm] int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var bootcamp = await _context.Bootcamps.FindAsync(id);
+            if (bootcamp == null)
             {
                 return NotFound();
             }
-            _context.Students.Remove(student);
+
+            _context.Bootcamps.Remove(bootcamp);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+
         }
     }
 }

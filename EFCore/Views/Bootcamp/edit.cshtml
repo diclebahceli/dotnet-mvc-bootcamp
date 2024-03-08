@@ -1,0 +1,14 @@
+@model Bootcamp
+
+<h2>Update Bootcamp</h2>
+<hr>
+
+<form asp-controller="Bootcamp" asp-action="edit" method="post">
+    <input type="hiddent" asp-for="CourseId">
+    <div class="mb-3">
+        <label asp-for="CourseName" class="form-label">Course Title</label>
+        <input asp-for="CourseName" class="form-control" />
+
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

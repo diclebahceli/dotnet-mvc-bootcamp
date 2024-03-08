@@ -48,6 +48,10 @@ namespace EFCore.Migrations
 
                     b.HasKey("RegisteredUserId");
 
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
                     b.ToTable("RegisteredUsers");
                 });
 
@@ -72,6 +76,25 @@ namespace EFCore.Migrations
                     b.HasKey("StudentId");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EFCore.Data.RegisteredUsers", b =>
+                {
+                    b.HasOne("EFCore.Data.Bootcamp", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EFCore.Data.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

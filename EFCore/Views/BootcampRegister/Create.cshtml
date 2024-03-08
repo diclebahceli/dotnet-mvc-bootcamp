@@ -1,0 +1,17 @@
+@model RegisteredUsers
+
+<h2>Add Bootcamp Register</h2>
+<hr>
+
+<form asp-controller="BootcampRegister" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="StudentId" class="form-label">Student</label>
+        <select asp-items="ViewBag.Students" asp-for="StudentId" class="form-select"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CourseId" class="form-label">Bootcamp</label>
+        <select asp-items="ViewBag.Bootcamps" asp-for="CourseId" class="form-select"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

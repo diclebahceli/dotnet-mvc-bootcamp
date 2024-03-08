@@ -1,0 +1,11 @@
+@model Bootcamp
+
+
+<p>
+<form action="Delete" method="post">
+    <input type="hidden" name="id" asp-for=@Model.CourseId />
+    <b>@Model.CourseName </b> do you want to delete this student?
+    <button type="submit" class="btn btn-danger"> Yes </button>
+    <a asp-action="Index" class="btn btn-primary"> No </a>
+</form>
+</p>

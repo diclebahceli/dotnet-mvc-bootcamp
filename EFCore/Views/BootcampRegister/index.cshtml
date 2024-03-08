@@ -1,0 +1,35 @@
+@model IEnumerable<RegisteredUsers>
+@{
+}
+
+<h2>Bootcamp List</h2>
+<hr>
+<a href="BootcampRegister/Create" class="btn btn-primary">Add Bootcamp</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(registration => registration.RegisteredUserId)</th>
+            <th>@Html.DisplayNameFor(registration => registration.Student.NameSurname)</th>
+            <th>@Html.DisplayNameFor(registration => registration.Course.CourseName)</th>
+            <th style="width: 150px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var registration in Model)
+        {
+            <tr>
+                <td>@registration.RegisteredUserId</td>
+                <td>@registration.Student.NameSurname</td>
+                <td>@registration.Course.CourseName</td>
+                <td>
+                    <a asp-controller="Bootcamp" asp-action="Edit" asp-route-id="@registration.RegisteredUserId"
+                        class="btn btn-primary">Edit</a>
+                    <a asp-controller="Bootcamp" asp-action="Delete" asp-route-id="@registration.RegisteredUserId"
+                        class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+
+
+        }
+    </tbody>
+</table>

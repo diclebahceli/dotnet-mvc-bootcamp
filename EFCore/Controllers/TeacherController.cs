@@ -1,34 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using EFCore.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.Controllers
 {
-    public class StudentController : Controller
+    public class TeacherController : Controller
     {
-
         private readonly DataContext _context;
 
-        public StudentController(DataContext context)
+        public TeacherController(DataContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var students = await _context.Students.ToListAsync();
-            return View(students);
+            var teachers = await _context.Teachers.ToListAsync();
+            return View(teachers);
         }
+
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Student model)
+        public async Task<IActionResult> Create(Teacher model)
         {
-
-            _context.Students.Add(model);
+            _context.Teachers.Add(model);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -40,21 +43,19 @@ namespace EFCore.Controllers
             {
                 return NotFound();
             }
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var teacher = await _context.Teachers.FindAsync(id);
+            if (teacher == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> Edit(int? id, Student model)
+        public async Task<IActionResult> Edit(int? id, Teacher model)
         {
-
-            if (id != model.StudentId)
+            if (id != model.TeacherId)
             {
                 return NotFound();
             }
@@ -62,12 +63,12 @@ namespace EFCore.Controllers
             {
                 try
                 {
-                    _context.Update(model);
+                    _context.Teachers.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Students.Any(o => o.StudentId == model.StudentId))
+                    if (!_context.Teachers.Any(e => e.TeacherId == model.TeacherId))
                     {
                         return NotFound();
                     }
@@ -76,8 +77,9 @@ namespace EFCore.Controllers
                         throw;
                     }
                 }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpGet]
@@ -87,25 +89,26 @@ namespace EFCore.Controllers
             {
                 return NotFound();
             }
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(m => m.TeacherId == id);
+            if (teacher == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete([FromForm] int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var teacher = await _context.Teachers.FindAsync(id);
+            if (teacher == null)
             {
                 return NotFound();
             }
-            _context.Students.Remove(student);
+            _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
     }
 }

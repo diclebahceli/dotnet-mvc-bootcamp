@@ -26,7 +26,9 @@
                 <td>
                     <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.StudentId"
                         class="btn btn-primary">Edit</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+
+                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.StudentId"
+                        class="btn btn-danger">Delete</a>
 
                 </td>
             </tr>
